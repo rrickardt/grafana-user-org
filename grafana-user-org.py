@@ -11,6 +11,7 @@ os.system("stty -echo")
 password = raw_input("Please enter password: ")
 os.system("stty echo")
 org = raw_input("\nPlease enter orgname: ")
+orguser = raw_input("Please enter orguser: ")
 
 auth = (username, password) 
 
@@ -71,7 +72,8 @@ def addUsers():
     #everyone from list is added as viewer
     for user in yourusers:
         add = requests.post('%s/org/users' %url, headers=headers,auth=auth,json={'Role':'Viewer', 'LoginOrEmail':user})
-    return add.text
+    orguseradd = requests.post('%s/org/users' %url, headers=headers,auth=auth,json={'Role':'Viewer', 'LoginOrEmail':orguser})
+    return add.text + orguseradd.text
 
 def makedashAdmins():
     for id in adminids:
